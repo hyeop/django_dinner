@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5 mb-5">
+
+    <h1><b>{{ bo.subject }}</b></h1>
+
+    <div class="row">
+        <div class="col-lg-10">
+            <textarea disabled class="form-control mt-3" style="height: 200px; font-size: 25px;">{{ bo.content }}</textarea>
+        </div>
+        <div class="col-lg-2">
+            <img src="{{ bo.writerpic }}" class="rounded-circle" height="100px">
+        </div>
+    </div>
+    
+
+    <div class="mt-3 text-end">
+        {% if bo.writer == user.username %}
+            <a href="{% url 'board:update' bo.id %}"><button class="btn btn-secondary">MOD</button></a>
+            <a href="{% url 'board:delete' bo.id %}"><button class="btn btn-danger">DEL</button></a>
+        {% endif %}
+
+        {% if user in bo.likey.all %}
+            <a href="{% url 'board:unlikey' bo.id %}"><button class="btn btn-danger">좋아요 취소</button></a>
+        {% else %}
+            <a href="{% url 'board:likey' bo.id %}"><button class="btn btn-primary">좋아요</button></a>
+        {% endif %}
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            북마크추가
+        </button>
+
+        <a href="{% url 'board:index' %}"><button class="btn btn-primary">HOME</button></a>
+    </div>
+    
+    <hr>
+
+    <form method="post" action="{% url 'board:create_reply' bo.id %}">
+        {% csrf_token %}
+        <div class="row mt-4">
+            <div class="col-lg-11">
+                <input name="comment" type="text" class="form-control">
+            </div>
+            <div class="col-lg-1">
+                <button class="btn btn-primary">+REPLY</button>
+            </div>
+        </div>
+    </form>
+    {% for i in re %}
+        <div class="row mt-5 text-center">
+                <div class="col-lg-2">
+                    <img src="{{ i.replyerpic }}" width="100px">
+                </div>
+                <div class="col-lg-8">
+                    <textarea disabled class="form-control">{{ i.comment }}</textarea>
+                </div>
+                {% if user.username == i.replyer %}
+                    <div class="col-lg-1">
+                        <a href="{% url 'board:remove_reply' bo.id i.id %}"><button class="btn btn-danger"> x </button></a>
+                    </div>
+                {% endif %}
+        </div>
+    {% endfor %}
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">ADD BOOKMARK</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="{% url 'book:create' %}">
+                {% csrf_token %}
+                <div class="modal-body">
+                    북마크를 추가하시겠습니까? <br>
+                    중요한 사이트라면 오른쪽 체크박스를 눌러주세요! <br>
+                    <textarea class="form-control mt-3" name="comment" placeholder="페이지 설명을 간단하게 해주세요."> </textarea>
+                    <div class="text-end">
+                        <input name="impo" type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+                        <label class="btn btn-outline-warning" for="btn-check-outlined">★</label><br>
+                    </div>
+                    <input type="hidden" name="sname" value="[BOARD]{{bo.subject}}">
+                    <input type="hidden" name="surl" value="{{request.path}}">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
+                    <button class="btn btn-primary">ADD</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

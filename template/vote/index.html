@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <h1><b>VOTE</b></h1>
+    <div class="text-end">
+        <a href="{% url 'vote:create' %}"><button class="btn btn-success">CREATE TOPIC</button></a>
+    </div>
+
+    <div class="row">
+        {% for i in tlist %}
+            <div class="col-sm-4 mt-5">
+                <div class="card">
+                    <div class="card-body" {% if user in i.voter.all %} style="background-color: rgba(3, 234, 130, 0.285);" {% endif %}>
+                        <h5 class="card-title">{{ i.subject }}</h5>
+                        <p class="card-text">{{ i.content }}</p>
+                        <a href="{% url 'vote:detail' i.id %}" class="btn btn-outline-primary">투표하러가기</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+
+</div>
+{% endblock %}

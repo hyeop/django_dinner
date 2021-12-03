@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <h1><b>BOOKMARK</b></h1>
+    <div class="text-end">
+        <a href="{% url 'book:create' %}"><button class="btn btn-success">+CREATE</button></a>
+    </div>
+
+    <div class="row mt-5">
+        {% for i in blist %}
+            <div class="col-sm-4 mt-4">
+                <div class="card text-center">
+                    <div class="card-body" {% if i.impo %}style="background-color: rgba(219, 237, 100, 0.432);"{% endif %}>
+                    <h5 class="card-title">{{ i.site_name }}</h5>
+                    <div>{{ i.comment }}</div>
+                    <a href="{{ i.site_url }}" class="btn btn-outline-primary mt-3">GO SITE</a>
+                    <a href="{% url 'book:delete' i.id %}" class="btn btn-outline-danger mt-3">REMOVE</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

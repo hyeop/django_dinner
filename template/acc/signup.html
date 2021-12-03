@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+
+    <h1><b>SIGNUP</b></h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mt-4 mb-4 input-group input-group-lg">
+            <span class="input-group-text" id="inputGroup-sizing-lg">USERNAME</span>
+            <input name="username" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+        </div>
+        <div class="mt-4 mb-4 input-group input-group-lg">
+            <span class="input-group-text" id="inputGroup-sizing-lg">PASSWORD</span>
+            <input name="password" type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+        </div>
+        <div class="mt-4 mb-4 input-group input-group-lg">
+            <span class="input-group-text" id="inputGroup-sizing-lg">COMMENT</span>
+            <textarea name="comment" class="form-control"></textarea>
+        </div>
+        <div class="mt-4 mb-4 input-group input-group-lg">
+            <span class="input-group-text" id="inputGroup-sizing-lg">NICKNAME</span>
+            <input name="nickname" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+        </div>
+
+        <div class="mt-4 mb-4 input-group input-group-lg">
+            <input name="pic" type="file" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+        </div>
+        
+        <div class="text-end">
+            <button class="btn btn-success">Success</button>
+        </div>
+    </form>
+
+</div>
+{% endblock %}

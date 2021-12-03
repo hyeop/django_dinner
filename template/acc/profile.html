@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5 mb-5">
+
+    <h1><b>PROFILE</b></h1>
+
+    <div class="mt-3 mb-5 text-center">
+        <img src="{{ user.getpic }}" height="200px">
+    </div>
+
+    
+    <div class="mt-4 mb-4 input-group input-group-lg">
+        <span class="input-group-text" id="inputGroup-sizing-lg">USERNAME</span>
+        <input value="{{user.username}}" disabled type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+    </div>
+    <div class="mt-4 mb-4 input-group input-group-lg">
+        <span class="input-group-text" id="inputGroup-sizing-lg">NICKNAME</span>
+        <input value="{{user.nickname}}" disabled name="nickname" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+    </div>
+    <div class="mt-4 mb-4 input-group input-group-lg">
+        <span class="input-group-text" id="inputGroup-sizing-lg">COMMENT</span>
+        <textarea style="height: 200px;" name="comment" disabled class="form-control">{{ user.comment }}</textarea>
+    </div>
+    
+    <div class="text-end">
+        <a href="{% url 'acc:update' %}"><button class="btn btn-primary">UPDATE</button></a>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            DELETE
+        </button>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><b>Remove Account</b></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <h4><b>계정을 삭제하시겠습니까?</b></h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
+                <a href="{% url 'acc:remove' %}"><button class="btn btn-danger">REMOVE</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}

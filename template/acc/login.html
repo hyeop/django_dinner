@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <h1><b>LOGIN</b></h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="mt-4 mb-4 input-group input-group-lg">
+            <span class="input-group-text" id="inputGroup-sizing-lg">USERNAME</span>
+            <input name="username" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+        </div>
+        <div class="mt-4 mb-4 input-group input-group-lg">
+            <span class="input-group-text" id="inputGroup-sizing-lg">PASSWORD</span>
+            <input name="password" type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+        </div>
+        <div class="text-end">
+            <button class="btn btn-success">LOGIN</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5 mb-5">
+    <h1><b>번역해ZOOM</b></h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="row mt-5">
+            <div class="col-lg-5">
+                <textarea name="before" placeholder="번역하고 싶은 문장을 입력하세요." class="form-control" style="height: 300px;">{{ btext }}</textarea>
+            </div>
+            <div class="col-lg-2 text-center">
+                <h4>FROM</h4>
+                <select name="from" class="form-select" size="3" aria-label="size 3 select example">
+                    <option value="ko" {% if from == "ko" or not from %}selected{% endif %}>Korea</option>
+                    <option value="zh-cn" {% if from == "zh-cn" %}selected{% endif %}>China</option>
+                    <option value="ja" {% if from == "ja" %}selected{% endif %}>Japan</option>
+                    <option value="vi" {% if from == "vi" %}selected{% endif %}>Vietnam</option>
+                    <option value="en" {% if from == "en" %}selected{% endif %}>English</option>
+                </select>
+                <button class="btn btn-secondary mt-3 mb-3">TRANS</button>
+                <h4>TO</h4>
+                <select name="to" class="form-select" size="3" aria-label="size 3 select example">
+                    <option value="ko" {% if to == "ko" %}selected{% endif %}>Korea</option>
+                    <option value="zh-cn" {% if to == "zh-cn" %}selected{% endif %}>China</option>
+                    <option value="ja" {% if to == "ja" %}selected{% endif %}>Japan</option>
+                    <option value="vi" {% if to == "vi" %}selected{% endif %}>Vietnam</option>
+                    <option value="en" {% if to == "en" or not to %}selected{% endif %}>English</option>
+                </select>
+            </div>
+            <div class="col-lg-5">
+                <textarea class="form-control" style="height: 300px;">{{ atext }}</textarea>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+
+{% endblock %}
